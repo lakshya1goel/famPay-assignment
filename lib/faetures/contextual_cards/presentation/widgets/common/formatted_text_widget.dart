@@ -55,7 +55,7 @@ class FormattedTextWidget extends StatelessWidget {
           text: entity.text ?? '',
           style: TextStyle(
             color: ColorUtils.parseColor(entity.color),
-            fontSize: entity.fontSize?.toDouble() ?? 16,
+            fontSize: entity.fontSize?.toDouble() ?? 14,
             fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
             decoration: TextStyleUtils.getTextDecoration(entity.fontStyle),
             fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
