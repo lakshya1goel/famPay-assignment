@@ -53,6 +53,27 @@ class CardFactory {
     final groupHeight = cardGroup.height?.toDouble();
     final isFullWidth = cardGroup.isFullWidth ?? false;
     final designType = cardGroup.designType ?? '';
+    final isHC9 = designType.toUpperCase() == 'HC9';
+
+    if (isHC9) {
+      return SizedBox(
+        height: groupHeight,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: cardGroup.cards.length,
+          padding: const EdgeInsets.only(right: 16),
+          physics: const BouncingScrollPhysics(),
+          separatorBuilder: (context, index) => const SizedBox(width: 12),
+          itemBuilder: (context, index) {
+            return buildCard(
+              card: cardGroup.cards[index],
+              designType: designType,
+              height: groupHeight,
+            );
+          },
+        ),
+      );
+    }
 
     if (cardGroup.isScrollable) {
       return Container(
@@ -75,27 +96,43 @@ class CardFactory {
       );
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: cardGroup.cards.asMap().entries.map((entry) {
-        final index = entry.key;
-        final card = entry.value;
+    if (cardGroup.cards.length == 1) {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: isFullWidth ? 0 : 0,
+          right: isFullWidth ? 0 : 0,
+          top: 8,
+          bottom: 8,
+        ),
+        child: buildCard(
+          card: cardGroup.cards[0],
+          designType: designType,
+          height: groupHeight,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.only(right: 16, top: 8),
+        child: Row(
+          children: cardGroup.cards.asMap().entries.map((entry) {
+            final index = entry.key;
+            final card = entry.value;
+            final isLast = index == cardGroup.cards.length - 1;
 
-        return Padding(
-          padding: EdgeInsets.only(
-            left: isFullWidth ? 0 : 0,
-            right: isFullWidth ? 0 : 0,
-            top: index == 0 ? 8 : 4,
-            bottom: index == cardGroup.cards.length - 1 ? 8 : 4,
-          ),
-          child: buildCard(
-            card: card,
-            designType: designType,
-            height: groupHeight,
-          ),
-        );
-      }).toList(),
-    );
+            return Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: isLast ? 0 : 12),
+                child: buildCard(
+                  card: card,
+                  designType: designType,
+                  height: groupHeight,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      );
+    }
   }
 
   static List<Widget> buildAllCardGroups(List<CardGroup> cardGroups) {
@@ -103,7 +140,6 @@ class CardFactory {
       return [const SizedBox.shrink()];
     }
 
-    // Sort by level
     final sortedGroups = List<CardGroup>.from(cardGroups)
       ..sort((a, b) => (a.level ?? 0).compareTo(b.level ?? 0));
 

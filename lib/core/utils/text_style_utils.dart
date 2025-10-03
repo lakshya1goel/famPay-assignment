@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 class TextStyleUtils {
   TextStyleUtils._();
 
-  /// Converts font family string to FontWeight
-  /// Examples: "met_bold" -> FontWeight.bold, "met_semi_bold" -> FontWeight.w600
   static FontWeight getFontWeight(String? fontFamily) {
     if (fontFamily == null) return FontWeight.normal;
 
@@ -24,8 +22,6 @@ class TextStyleUtils {
     return FontWeight.normal;
   }
 
-  /// Converts font style string to TextDecoration
-  /// Example: "underline" -> TextDecoration.underline
   static TextDecoration getTextDecoration(String? fontStyle) {
     if (fontStyle == null) return TextDecoration.none;
 
@@ -43,8 +39,6 @@ class TextStyleUtils {
     return TextDecoration.none;
   }
 
-  /// Converts align string to TextAlign
-  /// Example: "center" -> TextAlign.center
   static TextAlign getTextAlign(String? align) {
     if (align == null) return TextAlign.left;
 
@@ -61,7 +55,6 @@ class TextStyleUtils {
     }
   }
 
-  /// Converts font style string to FontStyle (italic/normal)
   static FontStyle getFontStyle(String? fontStyle) {
     if (fontStyle == null) return FontStyle.normal;
 
