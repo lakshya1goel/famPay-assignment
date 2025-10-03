@@ -1,28 +1,19 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../errors/exception.dart';
 
 class ApiClient {
-  final String baseUrl;
-  final http.Client httpClient;
+  final String baseUrl = dotenv.env['BASE_URL']!;
 
-  ApiClient({
-    required this.baseUrl,
-    http.Client? httpClient,
-  }) : httpClient = httpClient ?? http.Client();
-
-  Future<Map<String, dynamic>> get(
+  Future<List<dynamic>> get(
     String endpoint, {
     Map<String, String>? headers,
     Map<String, String>? queryParams,
   }) async {
     try {
-      final uri = Uri.parse('$baseUrl$endpoint')
-          .replace(queryParameters: queryParams);
-      final response =
-          await httpClient.get(uri, headers: _defaultHeaders(headers));
-
+      final uri = Uri.parse('$baseUrl$endpoint').replace(queryParameters: queryParams);
+      final response = await http.get(uri, headers: _defaultHeaders(headers));
       return _handleResponse(response);
     } catch (e) {
       throw UnknownException(message: e.toString());
@@ -36,7 +27,7 @@ class ApiClient {
     };
   }
 
-  Map<String, dynamic> _handleResponse(http.Response response) {
+  List<dynamic> _handleResponse(http.Response response) {
     final statusCode = response.statusCode;
 
     if (statusCode >= 200 && statusCode < 300) {

@@ -1,4 +1,6 @@
 class AppConstants {
+  static const String homeSectionEndpoint = "/mock/famapp/feed/home_section/";
+
   static const remindLaterKey = "REMIND_LATER_CARDS";
   static const dismissedKey = "DISMISSED_CARDS";
 
