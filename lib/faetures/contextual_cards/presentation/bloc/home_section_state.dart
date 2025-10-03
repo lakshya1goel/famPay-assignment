@@ -1,4 +1,4 @@
-import 'package:fam_assignment/faetures/contextual_cards/data/models/home_section_model.dart';
+part of 'home_section_bloc.dart';
 
 abstract class HomeSectionState {}
 

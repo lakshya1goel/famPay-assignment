@@ -1,3 +1,5 @@
+part of 'home_section_bloc.dart';
+
 abstract class HomeSectionEvent {}
 
 class FetchHomeSectionEvent extends HomeSectionEvent {}

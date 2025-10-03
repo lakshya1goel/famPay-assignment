@@ -1,8 +1,9 @@
 import 'package:fam_assignment/faetures/contextual_cards/domain/usecases/home_section_usecase.dart';
+import 'package:fam_assignment/faetures/contextual_cards/data/models/home_section_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home_section_event.dart';
-import 'home_section_state.dart';
+part 'home_section_event.dart';
+part 'home_section_state.dart';
 
 class HomeSectionBloc extends Bloc<HomeSectionEvent, HomeSectionState> {
   final HomeSectionUsecase homeSectionUsecase;
