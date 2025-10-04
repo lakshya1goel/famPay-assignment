@@ -22,11 +22,10 @@ class _HomeSectionState extends State<HomeSection> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title: const Text("Fam Pay"),
+        title: Image.asset('assets/fampaylogo.png'),
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: BlocBuilder<HomeSectionBloc, HomeSectionState>(
         builder: (context, state) {

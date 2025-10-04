@@ -59,10 +59,13 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.only(left: 8, right: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -133,7 +136,6 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          // Formatted Title using common widget
                           FormattedTextWidget(
                             formattedText: widget.card.formattedTitle,
                             fallbackText: widget.card.title,
