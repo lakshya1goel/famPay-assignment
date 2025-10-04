@@ -1,9 +1,25 @@
 class AppConstants {
   static const String homeSectionEndpoint = "/mock/famapp/feed/home_section/";
+}
 
-  static const cardTypeHC1 = "HC1";
-  static const cardTypeHC3 = "HC3";
-  static const cardTypeHC5 = "HC5";
-  static const cardTypeHC6 = "HC6";
-  static const cardTypeHC9 = "HC9";
+enum DesignType {
+  hc1('HC1'),
+  hc3('HC3'),
+  hc5('HC5'),
+  hc6('HC6'),
+  hc9('HC9');
+
+  final String value;
+  const DesignType(this.value);
+
+  static DesignType? fromString(String? value) {
+    if (value == null) return null;
+    try {
+      return DesignType.values.firstWhere(
+        (type) => type.value.toUpperCase() == value.toUpperCase(),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
 }

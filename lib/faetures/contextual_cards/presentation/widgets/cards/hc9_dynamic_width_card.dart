@@ -47,14 +47,14 @@ class HC9DynamicWidthCard extends StatelessWidget {
                   card.bgImage!.imageUrl!,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return const SizedBox.shrink();
-                  },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 48,
+                          color: Colors.grey,
+                        ),
                       ),
                     );
                   },

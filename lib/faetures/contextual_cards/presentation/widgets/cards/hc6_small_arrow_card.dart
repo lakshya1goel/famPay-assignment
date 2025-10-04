@@ -32,7 +32,16 @@ class HC6SmallArrowCard extends StatelessWidget {
                 height: 16,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.image, size: 16, color: Colors.grey);
+                  return Container(
+                    width: 16,
+                    height: 16,
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.broken_image,
+                      size: 12,
+                      color: Colors.grey,
+                    ),
+                  );
                 },
               ),
 

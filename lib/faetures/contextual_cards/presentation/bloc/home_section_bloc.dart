@@ -22,10 +22,6 @@ class HomeSectionBloc extends Bloc<HomeSectionEvent, HomeSectionState> {
           emit(HomeSectionEmpty());
         } else {
           final hiddenCardIds = storageService.getDismissedCards();
-          // final hiddenCardIds = [
-          //   ...storageService.getDismissedCards(),
-          //   ...storageService.getRemindLaterCards(),
-          // ];
           emit(HomeSectionLoaded(homeSection, hiddenCardIds));
         }
       } catch (e) {

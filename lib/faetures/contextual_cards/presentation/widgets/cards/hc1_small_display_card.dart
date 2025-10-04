@@ -32,7 +32,16 @@ class HC1SmallDisplayCard extends StatelessWidget {
                 height: 32,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.image, size: 16, color: Colors.grey);
+                  return Container(
+                    width: 32,
+                    height: 32,
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.broken_image,
+                      size: 16,
+                      color: Colors.grey,
+                    ),
+                  );
                 },
               ),
 

@@ -1,3 +1,4 @@
+import 'package:fam_assignment/config/constants.dart';
 import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc1_small_display_card.dart';
 import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc3_big_display_card.dart';
 import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc5_image_card.dart';
@@ -13,33 +14,33 @@ class CardFactory {
   static Widget buildCard({
     required CardModel card,
     required String designType,
-    double? height,
   }) {
+    final type = DesignType.fromString(designType);
     Widget cardWidget;
 
-    switch (designType.toUpperCase()) {
-      case 'HC1':
+    switch (type) {
+      case DesignType.hc1:
         cardWidget = HC1SmallDisplayCard(card: card);
         break;
 
-      case 'HC3':
+      case DesignType.hc3:
         cardWidget = HC3BigDisplayCard(card: card);
         break;
 
-      case 'HC5':
+      case DesignType.hc5:
         cardWidget = HC5ImageCard(card: card);
         break;
 
-      case 'HC6':
+      case DesignType.hc6:
         cardWidget = HC6SmallArrowCard(card: card);
         break;
 
-      case 'HC9':
+      case DesignType.hc9:
         cardWidget = HC9DynamicWidthCard(card: card);
         break;
 
-      default:
-        cardWidget = _UnsupportedCardWidget(designType: designType);
+      case null:
+        cardWidget = const SizedBox.shrink();
     }
 
     return cardWidget;
@@ -52,7 +53,7 @@ class CardFactory {
 
     final groupHeight = cardGroup.height?.toDouble();
     final designType = cardGroup.designType ?? '';
-    final isHC9 = designType.toUpperCase() == 'HC9';
+    final isHC9 = DesignType.fromString(designType) == DesignType.hc9;
 
     if (isHC9) {
       return Padding(
@@ -68,7 +69,6 @@ class CardFactory {
               return buildCard(
                 card: cardGroup.cards[index],
                 designType: designType,
-                height: groupHeight,
               );
             },
           ),
@@ -81,6 +81,7 @@ class CardFactory {
         height: groupHeight,
         margin: const EdgeInsets.symmetric(vertical: 8),
         child: ListView.separated(
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemCount: cardGroup.cards.length,
           physics: const BouncingScrollPhysics(),
@@ -92,7 +93,6 @@ class CardFactory {
                 child: buildCard(
                   card: cardGroup.cards[index],
                   designType: designType,
-                  height: groupHeight,
                 ),
               ),
             );
@@ -104,11 +104,7 @@ class CardFactory {
     if (cardGroup.cards.length == 1) {
       return Padding(
         padding: EdgeInsets.only(bottom: 15),
-        child: buildCard(
-          card: cardGroup.cards[0],
-          designType: designType,
-          height: groupHeight,
-        ),
+        child: buildCard(card: cardGroup.cards[0], designType: designType),
       );
     } else {
       return Padding(
@@ -122,11 +118,7 @@ class CardFactory {
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: isLast ? 0 : 12),
-                child: buildCard(
-                  card: card,
-                  designType: designType,
-                  height: groupHeight,
-                ),
+                child: buildCard(card: card, designType: designType),
               ),
             );
           }).toList(),
@@ -169,42 +161,5 @@ class CardFactory {
         .toList();
 
     return filteredGroups.map((group) => buildCardGroup(group)).toList();
-  }
-}
-
-class _UnsupportedCardWidget extends StatelessWidget {
-  final String designType;
-  const _UnsupportedCardWidget({required this.designType});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[400]!),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.warning_amber_rounded,
-            color: Colors.orange[700],
-            size: 32,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Unsupported card type: $designType',
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

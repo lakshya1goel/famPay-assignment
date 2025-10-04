@@ -24,35 +24,11 @@ class HC5ImageCard extends StatelessWidget {
         child: Image.network(
           card.bgImage!.imageUrl!,
           fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Container(
-              color: Colors.grey[200],
-              child: Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              ),
-            );
-          },
           errorBuilder: (context, error, stackTrace) {
             return Container(
               color: Colors.grey[300],
               child: const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.broken_image, size: 48, color: Colors.grey),
-                    SizedBox(height: 8),
-                    Text(
-                      'Image not available',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
+                child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
               ),
             );
           },

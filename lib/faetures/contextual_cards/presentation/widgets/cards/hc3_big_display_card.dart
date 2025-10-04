@@ -125,18 +125,10 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                             color: Colors.grey[300],
                             child: const Center(
                               child: Icon(
-                                Icons.error_outline,
+                                Icons.broken_image,
+                                size: 48,
                                 color: Colors.grey,
                               ),
-                            ),
-                          );
-                        },
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Container(
-                            color: Colors.grey[200],
-                            child: const Center(
-                              child: CircularProgressIndicator(),
                             ),
                           );
                         },
