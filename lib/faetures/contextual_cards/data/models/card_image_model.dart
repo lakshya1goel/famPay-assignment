@@ -11,13 +11,13 @@ class CardImage {
     this.aspectRatio,
   });
 
-  factory CardImage.fromJson(Map<String, dynamic> j) => CardImage(
-        imageType: j['image_type'] as String?,
-        assetType: j['asset_type'] as String?,
-        imageUrl: j['image_url'] as String?,
-        aspectRatio: (j['aspect_ratio'] is num)
-            ? (j['aspect_ratio'] as num).toDouble()
-            : null,
+  factory CardImage.fromJson(Map<String, dynamic> json) => CardImage(
+        imageType: json['image_type'] ?? '',
+        assetType: json['asset_type'] ?? '',
+        imageUrl: json['image_url'] ?? '',
+        aspectRatio: (json['aspect_ratio'] is num)
+            ? (json['aspect_ratio'] as num).toDouble()
+            : 0.0,
       );
 
   Map<String, dynamic> toJson() => {

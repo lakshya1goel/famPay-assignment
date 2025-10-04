@@ -1,40 +1,37 @@
 class Entity {
   final String? text;
-  final String? type;
   final String? color;
-  final int? fontSize;
   final String? fontStyle;
-  final String? fontFamily;
   final String? url;
+  final String? fontFamily;
+  final int? fontSize;
 
   Entity({
     this.text,
-    this.type,
     this.color,
-    this.fontSize,
     this.fontStyle,
-    this.fontFamily,
     this.url,
+    this.fontFamily,
+    this.fontSize,
   });
 
-  factory Entity.fromJson(Map<String, dynamic> j) => Entity(
-        text: j['text'] as String?,
-        type: j['type'] as String?,
-        color: j['color'] as String?,
-        fontSize:
-            (j['font_size'] is num) ? (j['font_size'] as num).toInt() : null,
-        fontStyle: j['font_style'] as String?,
-        fontFamily: j['font_family'] as String?,
-        url: j['url'] as String?,
+  factory Entity.fromJson(Map<String, dynamic> json) => Entity(
+        text: json['text'] ?? '',
+        color: json['color'] ?? '',
+        fontStyle: json['font_style'] ?? '',
+        url: json['url'] ?? '',
+        fontFamily: json['font_family'] ?? '',
+        fontSize: (json['font_size'] is num)
+            ? (json['font_size'] as num).toInt()
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         'text': text,
-        'type': type,
         'color': color,
-        'font_size': fontSize,
         'font_style': fontStyle,
-        'font_family': fontFamily,
         'url': url,
+        'font_family': fontFamily,
+        'font_size': fontSize,
       };
 }

@@ -23,13 +23,13 @@ class HomeSection {
 
   factory HomeSection.fromJson(Map<String, dynamic> json) {
     return HomeSection(
-      id: json['id'] as int,
-      slug: json['slug'] as String?,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      formattedTitle: json['formatted_title'] as String?,
-      formattedDescription: json['formatted_description'] as String?,
-      assets: json['assets'],
+      id: json['id'] ?? 0,
+      slug: json['slug'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      formattedTitle: json['formatted_title'] ?? '',
+      formattedDescription: json['formatted_description'] ?? '',
+      assets: json['assets'] ?? '',
       hcGroups: (json['hc_groups'] as List<dynamic>?)
               ?.map((e) => CardGroup.fromJson(e as Map<String, dynamic>))
               .toList() ??

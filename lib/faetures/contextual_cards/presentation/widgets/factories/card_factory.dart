@@ -148,12 +148,9 @@ class CardFactory {
             id: group.id,
             name: group.name,
             designType: group.designType,
-            cardType: group.cardType,
             cards: visibleCards,
             isScrollable: group.isScrollable,
             height: group.height,
-            isFullWidth: group.isFullWidth,
-            slug: group.slug,
             level: group.level,
           );
         })

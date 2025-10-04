@@ -11,10 +11,10 @@ class FormattedText {
     required this.entities,
   });
 
-  factory FormattedText.fromJson(Map<String, dynamic> j) => FormattedText(
-        text: j['text'] as String?,
-        align: j['align'] as String?,
-        entities: (j['entities'] as List<dynamic>?)
+  factory FormattedText.fromJson(Map<String, dynamic> json) => FormattedText(
+        text: json['text'] ?? '',
+        align: json['align'] ?? '',
+        entities: (json['entities'] as List<dynamic>?)
                 ?.map((e) => Entity.fromJson(e as Map<String, dynamic>))
                 .toList() ??
             [],

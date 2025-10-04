@@ -173,22 +173,11 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                                             Colors.transparent
                                         ? ColorUtils.parseColor(cta.textColor)
                                         : Colors.white,
-                                    shape: cta.isCircular == true
-                                        ? const CircleBorder()
-                                        : RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            side:
-                                                cta.strokeWidth != null &&
-                                                    cta.strokeWidth! > 0
-                                                ? BorderSide(
-                                                    width: cta.strokeWidth!
-                                                        .toDouble(),
-                                                    color: Colors.white,
-                                                  )
-                                                : BorderSide.none,
+                                    shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
                                           ),
+                                        ),
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 32,
                                       vertical: 14,
