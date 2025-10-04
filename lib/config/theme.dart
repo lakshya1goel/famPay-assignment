@@ -9,7 +9,4 @@ class AppTheme {
       ),
     );
   }
-
-  static const fallbackCardColor = Colors.grey;
-  static const fallbackTextColor = Colors.black87;
 }

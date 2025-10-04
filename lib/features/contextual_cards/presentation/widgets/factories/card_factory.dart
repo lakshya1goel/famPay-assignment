@@ -11,39 +11,30 @@ import '../../../data/models/card_model.dart';
 class CardFactory {
   CardFactory._();
 
+  // map of design types to their respective builders
+  static final Map<String, Function(CardModel)> _builders = {};
+
+  // initialize the builders
+  static void initialize() {
+    _builders[DesignType.hc1.value] = (card) => HC1SmallDisplayCard(card: card);
+    _builders[DesignType.hc3.value] = (card) => HC3BigDisplayCard(card: card);
+    _builders[DesignType.hc5.value] = (card) => HC5ImageCard(card: card);
+    _builders[DesignType.hc6.value] = (card) => HC6SmallArrowCard(card: card);
+    _builders[DesignType.hc9.value] = (card) => HC9DynamicWidthCard(card: card);
+  }
+
+  // build the card based on the design type
   static Widget buildCard({
     required CardModel card,
     required String designType,
   }) {
-    final type = DesignType.fromString(designType);
-    Widget cardWidget;
-
-    switch (type) {
-      case DesignType.hc1:
-        cardWidget = HC1SmallDisplayCard(card: card);
-        break;
-
-      case DesignType.hc3:
-        cardWidget = HC3BigDisplayCard(card: card);
-        break;
-
-      case DesignType.hc5:
-        cardWidget = HC5ImageCard(card: card);
-        break;
-
-      case DesignType.hc6:
-        cardWidget = HC6SmallArrowCard(card: card);
-        break;
-
-      case DesignType.hc9:
-        cardWidget = HC9DynamicWidthCard(card: card);
-        break;
-
-      case null:
-        cardWidget = const SizedBox.shrink();
+    final builder = _builders[designType.toUpperCase()];
+  
+    if (builder == null) {
+      return const SizedBox.shrink();
     }
 
-    return cardWidget;
+    return builder(card);
   }
 
   static Widget buildCardGroup(CardGroup cardGroup) {
@@ -55,6 +46,7 @@ class CardFactory {
     final designType = cardGroup.designType ?? '';
     final isHC9 = DesignType.fromString(designType) == DesignType.hc9;
 
+    // build the card group for hc9 design type include height & neglect scrollable parameter
     if (isHC9) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 15),
@@ -76,6 +68,7 @@ class CardFactory {
       );
     }
 
+    // build cards with scrollable parameter (except HC9)
     if (cardGroup.isScrollable) {
       return Container(
         height: groupHeight,
@@ -101,6 +94,7 @@ class CardFactory {
       );
     }
 
+    // build cards without scrollable parameter with equal width (except HC9)
     if (cardGroup.cards.length == 1) {
       return Padding(
         padding: EdgeInsets.only(bottom: 15),
@@ -135,9 +129,11 @@ class CardFactory {
       return [const SizedBox.shrink()];
     }
 
+    // sort the card groups by level
     final sortedGroups = List<CardGroup>.from(cardGroups)
       ..sort((a, b) => (a.level ?? 0).compareTo(b.level ?? 0));
 
+    // filter the card groups by hidden card ids
     final filteredGroups = sortedGroups
         .map((group) {
           final visibleCards = group.cards

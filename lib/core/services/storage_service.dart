@@ -1,3 +1,4 @@
+import 'package:fam_assignment/core/errors/exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
@@ -8,43 +9,68 @@ class StorageService {
 
   StorageService(this._prefs);
 
+  // initialise the storage service
   static Future<StorageService> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    return StorageService(prefs);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return StorageService(prefs);
+    } catch (e) {
+      throw CacheException(message: 'Failed to initialize storage service: ${e.toString()}');
+    }
   }
 
+  // get the list of ids of dismissed cards
   List<String> getDismissedCards() {
-    return _prefs.getStringList(_dismissedCardsKey) ?? [];
+    try {
+      return _prefs.getStringList(_dismissedCardsKey) ?? [];
+    } catch (e) {
+      throw CacheException(message: 'Failed to get dismissed cards: ${e.toString()}');
+    }
   }
 
+  // save the id of a card to be dismissed
   Future<bool> dismissCard(String cardId) async {
-    final dismissedCards = getDismissedCards();
-    if (!dismissedCards.contains(cardId)) {
-      dismissedCards.add(cardId);
-      return await _prefs.setStringList(_dismissedCardsKey, dismissedCards);
+    try {
+      final dismissedCards = getDismissedCards();
+      if (!dismissedCards.contains(cardId)) {
+        dismissedCards.add(cardId);
+        return await _prefs.setStringList(_dismissedCardsKey, dismissedCards);
+      }
+      return true;
+    } catch (e) {
+      throw CacheException(message: 'Failed to dismiss card: ${e.toString()}');
     }
-    return true;
   }
 
+  // get the list of ids of cards that are to be reminded later
   List<String> getRemindLaterCards() {
-    return _prefs.getStringList(_remindLaterCardsKey) ?? [];
-  }
-
-  Future<bool> remindLater(String cardId) async {
-    final remindLaterCards = getRemindLaterCards();
-    if (!remindLaterCards.contains(cardId)) {
-      remindLaterCards.add(cardId);
-      return await _prefs.setStringList(_remindLaterCardsKey, remindLaterCards);
+    try {
+      return _prefs.getStringList(_remindLaterCardsKey) ?? [];
+    } catch (e) {
+      throw CacheException(message: 'Failed to get remind later cards: ${e.toString()}');
     }
-    return true;
   }
 
+  // save the id of a card to be reminded later
+  Future<bool> remindLater(String cardId) async {
+    try {
+      final remindLaterCards = getRemindLaterCards();
+      if (!remindLaterCards.contains(cardId)) {
+        remindLaterCards.add(cardId);
+        return await _prefs.setStringList(_remindLaterCardsKey, remindLaterCards);
+      }
+      return true;
+    } catch (e) {
+      throw CacheException(message: 'Failed to remind later: ${e.toString()}');
+    }
+  }
+
+  // clear the list of ids of cards that are to be reminded later
   Future<bool> clearRemindLaterCards() async {
-    return await _prefs.remove(_remindLaterCardsKey);
-  }
-
-  bool isCardHidden(String cardId) {
-    return getDismissedCards().contains(cardId) ||
-        getRemindLaterCards().contains(cardId);
+    try {
+      return await _prefs.remove(_remindLaterCardsKey);
+    } catch (e) {
+      throw CacheException(message: 'Failed to clear remind later cards: ${e.toString()}');
+    }
   }
 }

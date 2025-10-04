@@ -16,7 +16,7 @@ class ApiClient {
       final response = await http.get(uri, headers: _defaultHeaders(headers));
       return _handleResponse(response);
     } catch (e) {
-      throw UnknownException(message: e.toString());
+      throw UnknownException(message: 'Failed to get data: ${e.toString()}');
     }
   }
 
@@ -34,7 +34,7 @@ class ApiClient {
       return response.body.isNotEmpty ? jsonDecode(response.body) : {};
     } else {
       throw ServerException(
-        message: response.body.isNotEmpty ? response.body : "Unknown server error",
+        message: response.body.isNotEmpty ? response.body : "Unknown server error: ${response.statusCode}",
         statusCode: statusCode,
       );
     }

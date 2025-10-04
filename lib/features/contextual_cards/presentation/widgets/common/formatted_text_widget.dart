@@ -46,16 +46,24 @@ class FormattedTextWidget extends StatelessWidget {
   }
 
   List<TextSpan> _buildTextSpans() {
-    final parts = formattedText?.text?.split('{}') ?? [];
+    // fallback text
+    if (formattedText == null || formattedText!.text == null) {
+      return [TextSpan(text: fallbackText ?? '', style: defaultStyle)];
+    }
+
+    // split the text into parts
+    final parts = formattedText!.text!.split('{}');
     final entities = formattedText?.entities ?? [];
     final spans = <TextSpan>[];
 
     for (int i = 0; i < parts.length; i++) {
+      // add the text to the spans and an additional new line for proper spacing
       if (parts[i].trim().isNotEmpty) {
         spans.add(TextSpan(text: parts[i], style: defaultStyle));
         spans.add(const TextSpan(text: '\n'));
       }
 
+      // add the entities to the spans
       if (i < entities.length) {
         final entity = entities[i];
         final hasUrl = entity.url != null && entity.url!.isNotEmpty;
