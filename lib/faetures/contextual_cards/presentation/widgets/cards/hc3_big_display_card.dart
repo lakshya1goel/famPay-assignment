@@ -68,6 +68,7 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _ActionButton(
                     icon: Image.asset('assets/remind.png'),
@@ -140,55 +141,57 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                             fallbackText: widget.card.title,
                             defaultStyle: const TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
 
                           if (widget.card.cta.isNotEmpty)
-                            Row(
+                            const SizedBox(height: 20),
+
+                          if (widget.card.cta.isNotEmpty)
+                            Wrap(
+                              spacing: 12,
+                              runSpacing: 12,
                               children: widget.card.cta.map((cta) {
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 8),
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: ColorUtils.parseColor(
-                                        cta.bgColor,
-                                      ),
-                                      foregroundColor:
-                                          ColorUtils.parseColor(
-                                                cta.textColor,
-                                              ) !=
-                                              Colors.transparent
-                                          ? ColorUtils.parseColor(cta.textColor)
-                                          : Colors.white,
-                                      shape: cta.isCircular == true
-                                          ? const CircleBorder()
-                                          : RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              side:
-                                                  cta.strokeWidth != null &&
-                                                      cta.strokeWidth! > 0
-                                                  ? BorderSide(
-                                                      width: cta.strokeWidth!
-                                                          .toDouble(),
-                                                      color: Colors.white,
-                                                    )
-                                                  : BorderSide.none,
-                                            ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 32,
-                                        vertical: 12,
-                                      ),
+                                return ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: ColorUtils.parseColor(
+                                      cta.bgColor,
                                     ),
-                                    child: Text(
-                                      cta.text ?? 'Action',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                    foregroundColor:
+                                        ColorUtils.parseColor(cta.textColor) !=
+                                            Colors.transparent
+                                        ? ColorUtils.parseColor(cta.textColor)
+                                        : Colors.white,
+                                    shape: cta.isCircular == true
+                                        ? const CircleBorder()
+                                        : RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            side:
+                                                cta.strokeWidth != null &&
+                                                    cta.strokeWidth! > 0
+                                                ? BorderSide(
+                                                    width: cta.strokeWidth!
+                                                        .toDouble(),
+                                                    color: Colors.white,
+                                                  )
+                                                : BorderSide.none,
+                                          ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 32,
+                                      vertical: 14,
+                                    ),
+                                    elevation: 0,
+                                  ),
+                                  child: Text(
+                                    cta.text ?? 'Action',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 );

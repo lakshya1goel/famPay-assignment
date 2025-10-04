@@ -86,10 +86,15 @@ class CardFactory {
           physics: const BouncingScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(width: 12),
           itemBuilder: (context, index) {
-            return buildCard(
-              card: cardGroup.cards[index],
-              designType: designType,
-              height: groupHeight,
+            return IntrinsicWidth(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 200, maxWidth: 400),
+                child: buildCard(
+                  card: cardGroup.cards[index],
+                  designType: designType,
+                  height: groupHeight,
+                ),
+              ),
             );
           },
         ),
@@ -98,9 +103,7 @@ class CardFactory {
 
     if (cardGroup.cards.length == 1) {
       return Padding(
-        padding: EdgeInsets.only(
-          bottom: 15,
-        ),
+        padding: EdgeInsets.only(bottom: 15),
         child: buildCard(
           card: cardGroup.cards[0],
           designType: designType,

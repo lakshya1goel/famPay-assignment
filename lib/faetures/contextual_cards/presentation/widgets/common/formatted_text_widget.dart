@@ -44,26 +44,52 @@ class FormattedTextWidget extends StatelessWidget {
   }
 
   List<TextSpan> _buildTextSpans() {
+    final text = formattedText!.text;
     final entities = formattedText!.entities;
     final spans = <TextSpan>[];
 
-    for (int i = 0; i < entities.length; i++) {
-      final entity = entities[i];
-
-      spans.add(
-        TextSpan(
-          text: entity.text ?? '',
-          style: TextStyle(
-            color: ColorUtils.parseColor(entity.color),
-            fontSize: entity.fontSize?.toDouble() ?? 14,
-            fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
-            fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
+    if (text == null || text.isEmpty) {
+      for (int i = 0; i < entities.length; i++) {
+        final entity = entities[i];
+        spans.add(
+          TextSpan(
+            text: entity.text ?? '',
+            style: TextStyle(
+              color: ColorUtils.parseColor(entity.color),
+              fontSize: entity.fontSize?.toDouble() ?? 14,
+              fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
+              fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
+            ),
           ),
-        ),
-      );
+        );
+        if (i < entities.length - 1) {
+          spans.add(const TextSpan(text: '\n'));
+        }
+      }
+      return spans;
+    }
 
-      if (i < entities.length - 1) {
-        spans.add(const TextSpan(text: '\n'));
+    final parts = text.split('{}');
+
+    for (int i = 0; i < parts.length; i++) {
+      if (parts[i].isNotEmpty) {
+        spans.add(TextSpan(text: parts[i], style: defaultStyle));
+      }
+
+      if (i < entities.length) {
+        final entity = entities[i];
+        spans.add(
+          TextSpan(
+            text: entity.text ?? '',
+            style: TextStyle(
+              color: ColorUtils.parseColor(entity.color),
+              fontSize:
+                  entity.fontSize?.toDouble() ?? defaultStyle?.fontSize ?? 14,
+              fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
+              fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
+            ),
+          ),
+        );
       }
     }
 
