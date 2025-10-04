@@ -8,7 +8,9 @@ class HomeSectionLoading extends HomeSectionState {}
 
 class HomeSectionLoaded extends HomeSectionState {
   final List<HomeSection> homeSections;
-  HomeSectionLoaded(this.homeSections);
+  final List<String> hiddenCardIds;
+
+  HomeSectionLoaded(this.homeSections, [this.hiddenCardIds = const []]);
 }
 
 class HomeSectionError extends HomeSectionState {

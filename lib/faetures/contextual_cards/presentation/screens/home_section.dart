@@ -53,7 +53,7 @@ class _HomeSectionState extends State<HomeSection> {
           if (state is HomeSectionLoaded) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
-              child: _buildCardList(state.homeSections),
+              child: _buildCardList(state.homeSections, state.hiddenCardIds),
             );
           }
 
@@ -66,7 +66,10 @@ class _HomeSectionState extends State<HomeSection> {
     );
   }
 
-  Widget _buildCardList(List<dynamic> homeSections) {
+  Widget _buildCardList(
+    List<dynamic> homeSections,
+    List<String> hiddenCardIds,
+  ) {
     return RefreshIndicator(
       onRefresh: () async {
         context.read<HomeSectionBloc>().add(FetchHomeSectionEvent());
@@ -90,7 +93,10 @@ class _HomeSectionState extends State<HomeSection> {
                     ),
                   ),
                 ),
-              ...CardFactory.buildAllCardGroups(homeSection.hcGroups),
+              ...CardFactory.buildAllCardGroups(
+                homeSection.hcGroups,
+                hiddenCardIds,
+              ),
             ],
           );
         },

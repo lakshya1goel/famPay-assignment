@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fam_assignment/core/utils/color_utils.dart';
 import 'package:fam_assignment/core/services/deeplink_service.dart';
+import 'package:fam_assignment/faetures/contextual_cards/presentation/bloc/home_section_bloc.dart';
 import '../../../data/models/card_model.dart';
 import '../common/formatted_text_widget.dart';
 
@@ -76,6 +78,9 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                     label: 'remind later',
                     onTap: () {
                       _controller.reverse();
+                      context.read<HomeSectionBloc>().add(
+                        RemindLaterCardEvent(widget.card.id.toString()),
+                      );
                     },
                   ),
                   const SizedBox(height: 12),
@@ -84,6 +89,9 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                     label: 'dismiss now',
                     onTap: () {
                       _controller.reverse();
+                      context.read<HomeSectionBloc>().add(
+                        DismissCardEvent(widget.card.id.toString()),
+                      );
                     },
                   ),
                 ],

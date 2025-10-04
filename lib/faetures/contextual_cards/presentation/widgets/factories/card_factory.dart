@@ -135,7 +135,10 @@ class CardFactory {
     }
   }
 
-  static List<Widget> buildAllCardGroups(List<CardGroup> cardGroups) {
+  static List<Widget> buildAllCardGroups(
+    List<CardGroup> cardGroups, [
+    List<String> hiddenCardIds = const [],
+  ]) {
     if (cardGroups.isEmpty) {
       return [const SizedBox.shrink()];
     }
@@ -143,7 +146,29 @@ class CardFactory {
     final sortedGroups = List<CardGroup>.from(cardGroups)
       ..sort((a, b) => (a.level ?? 0).compareTo(b.level ?? 0));
 
-    return sortedGroups.map((group) => buildCardGroup(group)).toList();
+    final filteredGroups = sortedGroups
+        .map((group) {
+          final visibleCards = group.cards
+              .where((card) => !hiddenCardIds.contains(card.id.toString()))
+              .toList();
+
+          return CardGroup(
+            id: group.id,
+            name: group.name,
+            designType: group.designType,
+            cardType: group.cardType,
+            cards: visibleCards,
+            isScrollable: group.isScrollable,
+            height: group.height,
+            isFullWidth: group.isFullWidth,
+            slug: group.slug,
+            level: group.level,
+          );
+        })
+        .where((group) => group.cards.isNotEmpty)
+        .toList();
+
+    return filteredGroups.map((group) => buildCardGroup(group)).toList();
   }
 }
 
