@@ -10,14 +10,12 @@ class HC9DynamicWidthCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use fixed height from API, calculate width based on aspect ratio
     final aspectRatio = card.bgImage?.aspectRatio ?? 1.0;
-    final cardHeight = 195.0; // Height from API
+    final cardHeight = 195.0;
     final cardWidth = cardHeight * aspectRatio;
 
     return Container(
       width: cardWidth,
-      height: cardHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: card.bgGradient != null && card.bgGradient!.colors.isNotEmpty

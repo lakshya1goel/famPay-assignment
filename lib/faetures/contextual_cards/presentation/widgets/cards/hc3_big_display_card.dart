@@ -48,8 +48,7 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final cardWidth = screenWidth - 40;
-    final aspectRatio = widget.card.bgImage?.aspectRatio ?? 1.0;
-    final cardHeight = cardWidth / aspectRatio;
+    final cardHeight = 350.0;
 
     return SizedBox(
       width: cardWidth,
@@ -57,6 +56,7 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
       child: Stack(
         children: [
           Container(
+            width: cardWidth,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.only(
@@ -65,7 +65,7 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -129,7 +129,6 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                         },
                       ),
 
-                    // Content Overlay
                     Container(
                       padding: const EdgeInsets.all(24),
                       child: Column(

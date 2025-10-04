@@ -10,8 +10,14 @@ class HC6SmallArrowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final cardWidth = screenWidth - 40;
+    final cardHeight = 60.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      width: cardWidth,
+      height: cardHeight,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: BoxDecoration(
         color: ColorUtils.parseColor(card.bgColor),
         borderRadius: BorderRadius.circular(12),
@@ -29,7 +35,7 @@ class HC6SmallArrowCard extends StatelessWidget {
               },
             ),
 
-          const SizedBox(width: 12),
+          const SizedBox(width: 15),
 
           Expanded(
             child: FormattedTextWidget(
@@ -48,7 +54,7 @@ class HC6SmallArrowCard extends StatelessWidget {
           Icon(
             Icons.arrow_forward_ios,
             size: 16,
-            color: Colors.black.withValues(alpha: 0.5),
+            color: Colors.black,
           ),
         ],
       ),

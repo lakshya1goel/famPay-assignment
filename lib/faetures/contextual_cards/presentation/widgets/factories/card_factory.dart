@@ -61,9 +61,8 @@ class CardFactory {
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: cardGroup.cards.length,
-          padding: const EdgeInsets.only(right: 16),
           physics: const BouncingScrollPhysics(),
-          separatorBuilder: (context, index) => const SizedBox(width: 12),
+          separatorBuilder: (context, index) => const SizedBox(width: 15),
           itemBuilder: (context, index) {
             return buildCard(
               card: cardGroup.cards[index],
@@ -82,7 +81,6 @@ class CardFactory {
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: cardGroup.cards.length,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
           physics: const BouncingScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(width: 12),
           itemBuilder: (context, index) {

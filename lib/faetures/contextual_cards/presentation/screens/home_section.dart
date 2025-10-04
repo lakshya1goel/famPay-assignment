@@ -73,14 +73,9 @@ class _HomeSectionState extends State<HomeSection> {
       },
       child: ListView.builder(
         itemCount: homeSections.length,
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 15),
         itemBuilder: (context, index) {
           final homeSection = homeSections[index];
-
-          debugPrint(
-            'HomeSection ${homeSection.id}: ${homeSection.hcGroups.length} card groups',
-          );
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
