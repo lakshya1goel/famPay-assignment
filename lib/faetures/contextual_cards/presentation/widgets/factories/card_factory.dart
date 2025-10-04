@@ -51,25 +51,27 @@ class CardFactory {
     }
 
     final groupHeight = cardGroup.height?.toDouble();
-    final isFullWidth = cardGroup.isFullWidth ?? false;
     final designType = cardGroup.designType ?? '';
     final isHC9 = designType.toUpperCase() == 'HC9';
 
     if (isHC9) {
-      return SizedBox(
-        height: groupHeight,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: cardGroup.cards.length,
-          physics: const BouncingScrollPhysics(),
-          separatorBuilder: (context, index) => const SizedBox(width: 15),
-          itemBuilder: (context, index) {
-            return buildCard(
-              card: cardGroup.cards[index],
-              designType: designType,
-              height: groupHeight,
-            );
-          },
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: SizedBox(
+          height: groupHeight,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: cardGroup.cards.length,
+            physics: const BouncingScrollPhysics(),
+            separatorBuilder: (context, index) => const SizedBox(width: 15),
+            itemBuilder: (context, index) {
+              return buildCard(
+                card: cardGroup.cards[index],
+                designType: designType,
+                height: groupHeight,
+              );
+            },
+          ),
         ),
       );
     }
@@ -97,10 +99,7 @@ class CardFactory {
     if (cardGroup.cards.length == 1) {
       return Padding(
         padding: EdgeInsets.only(
-          left: isFullWidth ? 0 : 0,
-          right: isFullWidth ? 0 : 0,
-          top: 8,
-          bottom: 8,
+          bottom: 15,
         ),
         child: buildCard(
           card: cardGroup.cards[0],
@@ -110,7 +109,7 @@ class CardFactory {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.only(right: 16, top: 8),
+        padding: const EdgeInsets.only(bottom: 15),
         child: Row(
           children: cardGroup.cards.asMap().entries.map((entry) {
             final index = entry.key;

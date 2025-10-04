@@ -10,13 +10,7 @@ class HC6SmallArrowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = screenWidth - 40;
-    final cardHeight = 60.0;
-
     return Container(
-      width: cardWidth,
-      height: cardHeight,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: BoxDecoration(
         color: ColorUtils.parseColor(card.bgColor),
@@ -51,11 +45,7 @@ class HC6SmallArrowCard extends StatelessWidget {
 
           const SizedBox(width: 8),
 
-          Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-            color: Colors.black,
-          ),
+          Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black),
         ],
       ),
     );
