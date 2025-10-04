@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:fam_assignment/core/utils/color_utils.dart';
 import 'package:fam_assignment/core/utils/text_style_utils.dart';
+import 'package:fam_assignment/core/services/deeplink_service.dart';
 import '../../../data/models/formatted_text_model.dart';
 
 class FormattedTextWidget extends StatelessWidget {
@@ -78,6 +80,8 @@ class FormattedTextWidget extends StatelessWidget {
 
       if (i < entities.length) {
         final entity = entities[i];
+        final hasUrl = entity.url != null && entity.url!.isNotEmpty;
+
         spans.add(
           TextSpan(
             text: entity.text ?? '',
@@ -87,7 +91,14 @@ class FormattedTextWidget extends StatelessWidget {
                   entity.fontSize?.toDouble() ?? defaultStyle?.fontSize ?? 14,
               fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
               fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
+              decoration: hasUrl ? TextDecoration.underline : null,
             ),
+            recognizer: hasUrl
+                ? (TapGestureRecognizer()
+                    ..onTap = () {
+                      DeeplinkService.handleDeepLink(entity.url);
+                    })
+                : null,
           ),
         );
       }

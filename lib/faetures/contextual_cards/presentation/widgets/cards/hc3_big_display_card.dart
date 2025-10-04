@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fam_assignment/core/utils/color_utils.dart';
+import 'package:fam_assignment/core/services/deeplink_service.dart';
 import '../../../data/models/card_model.dart';
 import '../common/formatted_text_widget.dart';
 
@@ -95,6 +96,9 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
             child: GestureDetector(
               onLongPress: _handleLongPress,
               onTap: () {
+                if (widget.card.url != null) {
+                  DeeplinkService.handleDeepLink(widget.card.url);
+                }
                 if (_controller.isCompleted) {
                   _controller.reverse();
                 }
@@ -155,7 +159,11 @@ class _HC3BigDisplayCardState extends State<HC3BigDisplayCard>
                               runSpacing: 12,
                               children: widget.card.cta.map((cta) {
                                 return ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (cta.url != null) {
+                                      DeeplinkService.handleDeepLink(cta.url);
+                                    }
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: ColorUtils.parseColor(
                                       cta.bgColor,
