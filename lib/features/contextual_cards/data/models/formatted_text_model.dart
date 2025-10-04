@@ -1,4 +1,4 @@
-import 'package:fam_assignment/faetures/contextual_cards/data/models/entity_mode.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/entity_mode.dart';
 
 class FormattedText {
   final String? text;

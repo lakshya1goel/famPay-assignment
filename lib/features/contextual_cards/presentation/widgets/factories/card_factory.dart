@@ -1,9 +1,9 @@
 import 'package:fam_assignment/config/constants.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc1_small_display_card.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc3_big_display_card.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc5_image_card.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc6_small_arrow_card.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/cards/hc9_dynamic_width_card.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/cards/hc1_small_display_card.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/cards/hc3_big_display_card.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/cards/hc5_image_card.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/cards/hc6_small_arrow_card.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/cards/hc9_dynamic_width_card.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/card_group_model.dart';
 import '../../../data/models/card_model.dart';

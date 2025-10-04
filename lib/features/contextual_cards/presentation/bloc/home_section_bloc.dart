@@ -1,5 +1,5 @@
-import 'package:fam_assignment/faetures/contextual_cards/domain/usecases/home_section_usecase.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/home_section_model.dart';
+import 'package:fam_assignment/features/contextual_cards/domain/usecases/home_section_usecase.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/home_section_model.dart';
 import 'package:fam_assignment/core/services/storage_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +17,7 @@ class HomeSectionBloc extends Bloc<HomeSectionEvent, HomeSectionState> {
       try {
         await storageService.clearRemindLaterCards();
 
-        final homeSection = await homeSectionUsecase.fetchHomeSection();
+        final homeSection = await homeSectionUsecase();
         if (homeSection.isEmpty) {
           emit(HomeSectionEmpty());
         } else {

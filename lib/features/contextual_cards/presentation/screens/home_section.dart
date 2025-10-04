@@ -1,21 +1,23 @@
-import 'package:fam_assignment/faetures/contextual_cards/presentation/bloc/home_section_bloc.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/factories/card_factory.dart';
+import 'package:fam_assignment/config/dependency_injection.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/bloc/home_section_bloc.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/factories/card_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeSection extends StatefulWidget {
+class HomeSection extends StatelessWidget {
   const HomeSection({super.key});
 
   @override
-  State<HomeSection> createState() => _HomeSectionState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<HomeSectionBloc>()..add(FetchHomeSectionEvent()),
+      child: const _HomeSectionView(),
+    );
+  }
 }
 
-class _HomeSectionState extends State<HomeSection> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<HomeSectionBloc>().add(FetchHomeSectionEvent());
-  }
+class _HomeSectionView extends StatelessWidget {
+  const _HomeSectionView();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _HomeSectionState extends State<HomeSection> {
           if (state is HomeSectionError) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
-              child: _buildError(state.message),
+              child: _buildError(context, state.message),
             );
           }
 
@@ -53,13 +55,13 @@ class _HomeSectionState extends State<HomeSection> {
           if (state is HomeSectionLoaded) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
-              child: _buildCardList(state.homeSections, state.hiddenCardIds),
+              child: _buildCardList(context, state.homeSections, state.hiddenCardIds),
             );
           }
 
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: _buildInitial(),
+            child: _buildInitial(context),
           );
         },
       ),
@@ -67,6 +69,7 @@ class _HomeSectionState extends State<HomeSection> {
   }
 
   Widget _buildCardList(
+    BuildContext context,
     List<dynamic> homeSections,
     List<String> hiddenCardIds,
   ) {
@@ -104,7 +107,7 @@ class _HomeSectionState extends State<HomeSection> {
     );
   }
 
-  Widget _buildError(String message) {
+  Widget _buildError(BuildContext context, String message) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -143,7 +146,7 @@ class _HomeSectionState extends State<HomeSection> {
     );
   }
 
-  Widget _buildInitial() {
+  Widget _buildInitial(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

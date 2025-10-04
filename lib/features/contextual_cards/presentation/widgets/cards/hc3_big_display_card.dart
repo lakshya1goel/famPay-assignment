@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fam_assignment/core/utils/color_utils.dart';
 import 'package:fam_assignment/core/services/deeplink_service.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/bloc/home_section_bloc.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/bloc/home_section_bloc.dart';
 import '../../../data/models/card_model.dart';
 import '../common/formatted_text_widget.dart';
 

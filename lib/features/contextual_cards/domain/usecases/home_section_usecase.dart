@@ -6,7 +6,7 @@ class HomeSectionUsecase {
 
   HomeSectionUsecase(this.repository);
 
-  Future<List<HomeSection>> fetchHomeSection({String slug = "famx-paypage"}) {
+  Future<List<HomeSection>> call({String slug = "famx-paypage"}) {
     return repository.getHomeSection(slug: slug);
   }
 }

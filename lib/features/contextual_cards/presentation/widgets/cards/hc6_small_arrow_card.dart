@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fam_assignment/core/utils/color_utils.dart';
 import 'package:fam_assignment/core/services/deeplink_service.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/card_model.dart';
-import 'package:fam_assignment/faetures/contextual_cards/presentation/widgets/common/formatted_text_widget.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/card_model.dart';
+import 'package:fam_assignment/features/contextual_cards/presentation/widgets/common/formatted_text_widget.dart';
 
 class HC6SmallArrowCard extends StatelessWidget {
   final CardModel card;

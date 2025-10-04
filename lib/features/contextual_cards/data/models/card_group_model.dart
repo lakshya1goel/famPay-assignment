@@ -1,4 +1,4 @@
-import 'package:fam_assignment/faetures/contextual_cards/data/models/card_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/card_model.dart';
 
 class CardGroup {
   final int id;

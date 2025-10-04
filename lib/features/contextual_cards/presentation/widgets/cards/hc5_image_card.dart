@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fam_assignment/core/services/deeplink_service.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/card_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/card_model.dart';
 
 class HC5ImageCard extends StatelessWidget {
   final CardModel card;

@@ -1,7 +1,7 @@
-import 'package:fam_assignment/faetures/contextual_cards/data/models/card_image_model.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/cta_model.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/formatted_text_model.dart';
-import 'package:fam_assignment/faetures/contextual_cards/data/models/gradient_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/card_image_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/cta_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/formatted_text_model.dart';
+import 'package:fam_assignment/features/contextual_cards/data/models/gradient_model.dart';
 
 class CardModel {
   final int id;
