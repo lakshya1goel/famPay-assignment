@@ -46,42 +46,19 @@ class FormattedTextWidget extends StatelessWidget {
   }
 
   List<TextSpan> _buildTextSpans() {
-    final text = formattedText!.text;
-    final entities = formattedText!.entities;
+    final parts = formattedText?.text?.split('{}') ?? [];
+    final entities = formattedText?.entities ?? [];
     final spans = <TextSpan>[];
 
-    if (text == null || text.isEmpty) {
-      for (int i = 0; i < entities.length; i++) {
-        final entity = entities[i];
-        spans.add(
-          TextSpan(
-            text: entity.text ?? '',
-            style: TextStyle(
-              color: ColorUtils.parseColor(entity.color),
-              fontSize: entity.fontSize?.toDouble() ?? 14,
-              fontWeight: TextStyleUtils.getFontWeight(entity.fontFamily),
-              fontStyle: TextStyleUtils.getFontStyle(entity.fontStyle),
-            ),
-          ),
-        );
-        if (i < entities.length - 1) {
-          spans.add(const TextSpan(text: '\n'));
-        }
-      }
-      return spans;
-    }
-
-    final parts = text.split('{}');
-
     for (int i = 0; i < parts.length; i++) {
-      if (parts[i].isNotEmpty) {
+      if (parts[i].trim().isNotEmpty) {
         spans.add(TextSpan(text: parts[i], style: defaultStyle));
+        spans.add(const TextSpan(text: '\n'));
       }
 
       if (i < entities.length) {
         final entity = entities[i];
         final hasUrl = entity.url != null && entity.url!.isNotEmpty;
-
         spans.add(
           TextSpan(
             text: entity.text ?? '',
