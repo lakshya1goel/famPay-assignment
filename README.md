@@ -108,7 +108,7 @@ lib/
 
 #### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/lakshya1goel/famPay-assignment
 cd fam_assignment
 ```
 
